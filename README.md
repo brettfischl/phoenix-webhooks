@@ -23,3 +23,12 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 ## Running the database locally
 `docker run -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 postgres`
+
+## Testing requests
+
+```
+curl  --request POST \
+  --header "Content-Type: application/json" \
+  --data '{ "test":"test" }' \
+  http://localhost:4000/hooks/path
+```

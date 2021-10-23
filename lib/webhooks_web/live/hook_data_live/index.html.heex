@@ -13,10 +13,8 @@
 <table>
   <thead>
     <tr>
-      <th>Data</th>
       <th>Referrer</th>
       <th>Params</th>
-      <th>Method</th>
 
       <th></th>
     </tr>
@@ -27,9 +25,7 @@
     <% else %>
       <%= for hook_data <- @hook_data_collection do %>
         <tr id={"hook_data-#{hook_data.id}"}>
-          <td><%= hook_data.data %></td>
           <td><%= hook_data.referrer %></td>
-          <td><%= hook_data.params %></td>
           <td><%= hook_data.method %></td>
 
           <td>
