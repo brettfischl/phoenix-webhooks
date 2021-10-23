@@ -8,7 +8,7 @@ defmodule Webhooks.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
-    many_to_many :organizations, Webhooks.Accounts.Organization, join_through: "user_organizations", on_replace: :delete
+    many_to_many :organizations, Webhooks.Accounts.Organization, join_through: Webhooks.Accounts.UserOrganization, on_replace: :delete
 
     timestamps()
   end
@@ -35,6 +35,16 @@ defmodule Webhooks.Accounts.User do
     |> cast(attrs, [:email, :password])
     |> validate_email()
     |> validate_password(opts)
+    |> set_organization
+  end
+
+  defp set_organization(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true} ->
+        put_change(changeset, :organizations, [%{name: "#{changeset.changes.email}'s org"}])
+      _ ->
+        changeset
+    end
   end
 
   defp validate_email(changeset) do

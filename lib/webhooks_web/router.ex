@@ -17,15 +17,11 @@ defmodule WebhooksWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", WebhooksWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-  end
-
   # Authenticated Routes
   scope "/", WebhooksWeb do
     pipe_through [:browser, :require_authenticated_user]
+
+    get "/", HookController, :index
 
     resources "/hooks", HookController
 

@@ -3,7 +3,7 @@ defmodule Webhooks.Accounts.UserOrganization do
   import Ecto.Changeset
 
   schema "user_organizations" do
-    field :is_current, :boolean, default: false
+    field :is_current, :boolean, default: true
     field :user_id, :id
     field :organization_id, :id
 

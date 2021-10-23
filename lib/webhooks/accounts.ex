@@ -6,7 +6,7 @@ defmodule Webhooks.Accounts do
   import Ecto.Query, warn: false
   alias Webhooks.Repo
 
-  alias Webhooks.Accounts.{User, UserToken, UserNotifier}
+  alias Webhooks.Accounts.{User, UserToken, UserNotifier, Organization}
 
   ## Database getters
 
@@ -83,9 +83,22 @@ defmodule Webhooks.Accounts do
 
   """
   def register_user(attrs) do
-    %User{}
-    |> User.registration_changeset(attrs)
-    |> Repo.insert()
+    # organization =
+    #   %Organization{}
+    #   |> Organization.changeset(%{name: "#{attrs[:email]}'s org"})
+
+    user =
+      %User{}
+      |> User.registration_changeset(attrs)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:user, user)
+    # |> Ecto.Multi.insert(:organization, organization)
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{user: user}} -> {:ok, user}
+      {:error, name, value, _changes_so_far} -> {:error, {name, value}}
+    end
   end
 
   @doc """
@@ -355,8 +368,6 @@ defmodule Webhooks.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
-
-  alias Webhooks.Accounts.Organization
 
   @doc """
   Returns the list of organizations.

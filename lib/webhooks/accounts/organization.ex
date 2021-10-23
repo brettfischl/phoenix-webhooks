@@ -5,7 +5,7 @@ defmodule Webhooks.Accounts.Organization do
   schema "organizations" do
     field :name, :string
 
-    many_to_many :users, Webhooks.Accounts.User, join_through: "user_organizations", on_replace: :delete
+    many_to_many :users, Webhooks.Accounts.User, join_through: Webhooks.Accounts.UserOrganization, on_replace: :delete
 
     timestamps()
   end

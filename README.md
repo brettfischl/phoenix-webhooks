@@ -1,5 +1,7 @@
 # Webhooks
 
+Webhook testing server - create a collection route, send webhooks to it, and inspect the messages in real time.
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
