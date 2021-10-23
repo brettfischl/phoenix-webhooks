@@ -31,6 +31,12 @@ defmodule WebhooksWeb.Router do
     live "/hooks/:hook_id/data/:id/edit", HookDataLive.Show, :edit
   end
 
+  scope "/", WebhooksWeb do
+    pipe_through [:api]
+
+    post "/hooks/:path", HookController, :receive
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", WebhooksWeb do
   #   pipe_through :api

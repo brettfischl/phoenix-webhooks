@@ -1,6 +1,9 @@
 defmodule WebhooksWeb.HookController do
   use WebhooksWeb, :controller
 
+
+  @topic "hookdata"
+
   alias Webhooks.Hooks
   alias Webhooks.Hooks.Hook
 
@@ -58,5 +61,29 @@ defmodule WebhooksWeb.HookController do
     conn
     |> put_flash(:info, "Hook deleted successfully.")
     |> redirect(to: Routes.hook_path(conn, :index))
+  end
+
+  def receive(conn, params) do
+    referrer =
+      case List.keyfind(conn.req_headers, "referer", 0) do
+        {"referer", referer} ->
+          referer
+        nil ->
+          "no referrer"
+      end
+
+    [hook] = Hooks.get_hook_by_path!(params["path"])
+    hook_data = %{
+      hook_id: hook.id,
+      method: conn.method,
+      params: conn.query_params,
+      data: conn.body_params,
+      referrer: referrer
+    }
+    {_, hook_data} = Hooks.create_hook_data(hook_data)
+    WebhooksWeb.Endpoint.broadcast_from(self(), @topic, "hook_created", hook_data)
+
+    conn
+    |> send_resp(201, "")
   end
 end

@@ -37,6 +37,8 @@ defmodule Webhooks.Hooks do
   """
   def get_hook!(id), do: Repo.get!(Hook, id)
 
+  def get_hook_by_path!(path), do: Repo.all(from h in Hook, where: h.path == ^path, limit: 1)
+
   @doc """
   Creates a hook.
 
