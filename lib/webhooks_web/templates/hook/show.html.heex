@@ -1,0 +1,13 @@
+<h1>Show Hook</h1>
+
+<ul>
+
+  <li>
+    <strong>Path:</strong>
+    <%= @hook.path %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.hook_path(@conn, :edit, @hook) %></span> |
+<span><%= link "Back", to: Routes.hook_path(@conn, :index) %></span>

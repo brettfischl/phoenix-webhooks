@@ -1,0 +1,37 @@
+<h1>Show Hook data</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal WebhooksWeb.HookDataLive.FormComponent,
+    id: @hook_data.id,
+    title: @page_title,
+    action: @live_action,
+    hook_data: @hook_data,
+    return_to: Routes.hook_data_show_path(@socket, :show, @hook_data) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Data:</strong>
+    <%= @hook_data.data %>
+  </li>
+
+  <li>
+    <strong>Referrer:</strong>
+    <%= @hook_data.referrer %>
+  </li>
+
+  <li>
+    <strong>Params:</strong>
+    <%= @hook_data.params %>
+  </li>
+
+  <li>
+    <strong>Method:</strong>
+    <%= @hook_data.method %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.hook_data_show_path(@socket, :edit, @hook_data), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.hook_data_index_path(@socket, :index) %></span>

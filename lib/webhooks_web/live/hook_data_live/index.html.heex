@@ -1,0 +1,41 @@
+<h1>Listing Hook data</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal WebhooksWeb.HookDataLive.FormComponent,
+    id: @hook_data.id || :new,
+    title: @page_title,
+    action: @live_action,
+    hook_data: @hook_data,
+    return_to: Routes.hook_data_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Referrer</th>
+      <th>Params</th>
+      <th>Method</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="hook_data">
+    <%= for hook_data <- @hook_data_collection do %>
+      <tr id={"hook_data-#{hook_data.id}"}>
+        <td><%= hook_data.data %></td>
+        <td><%= hook_data.referrer %></td>
+        <td><%= hook_data.params %></td>
+        <td><%= hook_data.method %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.hook_data_show_path(@socket, :show, hook_data) %></span>
+          <span><%= live_patch "Edit", to: Routes.hook_data_index_path(@socket, :edit, hook_data) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: hook_data.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Hook data", to: Routes.hook_data_index_path(@socket, :new) %></span>

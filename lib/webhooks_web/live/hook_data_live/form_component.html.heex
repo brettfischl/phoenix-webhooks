@@ -1,0 +1,32 @@
+<div>
+  <h2><%= @title %></h2>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="hook_data-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+  
+    <%= label f, :data %>
+    <%= text_input f, :data %>
+    <%= error_tag f, :data %>
+  
+    <%= label f, :referrer %>
+    <%= text_input f, :referrer %>
+    <%= error_tag f, :referrer %>
+  
+    <%= label f, :params %>
+    <%= text_input f, :params %>
+    <%= error_tag f, :params %>
+  
+    <%= label f, :method %>
+    <%= text_input f, :method %>
+    <%= error_tag f, :method %>
+  
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </.form>
+</div>

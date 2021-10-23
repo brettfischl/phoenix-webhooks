@@ -1,0 +1,26 @@
+<h1>Listing Hooks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Path</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for hook <- @hooks do %>
+    <tr>
+      <td><%= hook.path %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.hook_path(@conn, :show, hook) %></span>
+        <span><%= link "Edit", to: Routes.hook_path(@conn, :edit, hook) %></span>
+        <span><%= link "Delete", to: Routes.hook_path(@conn, :delete, hook), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Hook", to: Routes.hook_path(@conn, :new) %></span>
