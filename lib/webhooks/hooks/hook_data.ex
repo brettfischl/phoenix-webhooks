@@ -16,7 +16,7 @@ defmodule Webhooks.Hooks.HookData do
   @doc false
   def changeset(hook_data, attrs) do
     hook_data
-    |> cast(attrs, [:data, :referrer, :params, :method])
-    |> validate_required([:data, :referrer, :params, :method])
+    |> cast(attrs, [:data, :referrer, :params, :method, :hook_id])
+    |> validate_required([:referrer, :method, :hook_id])
   end
 end

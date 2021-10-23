@@ -8,23 +8,19 @@
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save">
-  
-    <%= label f, :data %>
-    <%= text_input f, :data %>
-    <%= error_tag f, :data %>
-  
+
+    <p>Editing hook: <%= @hook.id %></p>
+
     <%= label f, :referrer %>
     <%= text_input f, :referrer %>
     <%= error_tag f, :referrer %>
   
-    <%= label f, :params %>
-    <%= text_input f, :params %>
-    <%= error_tag f, :params %>
-  
     <%= label f, :method %>
     <%= text_input f, :method %>
     <%= error_tag f, :method %>
-  
+
+    <%= hidden_input f, :hook_id, value: @hook.id %>
+    
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>

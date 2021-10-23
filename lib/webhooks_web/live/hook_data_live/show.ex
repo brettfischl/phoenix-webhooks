@@ -9,10 +9,11 @@ defmodule WebhooksWeb.HookDataLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _, socket) do
+  def handle_params(%{"id" => id, "hook_id" => hook_id}, _, socket) do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
+     |> assign(:hook, Hooks.get_hook!(hook_id))
      |> assign(:hook_data, Hooks.get_hook_data!(id))}
   end
 
