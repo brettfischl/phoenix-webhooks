@@ -1,6 +1,8 @@
 defmodule WebhooksWeb.HookDataLive.FormComponent do
   use WebhooksWeb, :live_component
 
+  @topic "hookdata"
+
   alias Webhooks.Hooks
 
   @impl true
@@ -29,24 +31,31 @@ defmodule WebhooksWeb.HookDataLive.FormComponent do
 
   defp save_hook_data(socket, :edit, hook_data_params) do
     case Hooks.update_hook_data(socket.assigns.hook_data, hook_data_params) do
-      {:ok, _hook_data} ->
+      {:ok, hook_data} ->
+        WebhooksWeb.Endpoint.broadcast_from(self(), @topic, "hook_updated", hook_data)
         {:noreply,
          socket
          |> put_flash(:info, "Hook data updated successfully")
+         |> assign(:hook_data, hook_data)
          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
     end
+
+
   end
 
   defp save_hook_data(socket, :new, hook_data_params) do
     case Hooks.create_hook_data(hook_data_params) do
-      {:ok, _hook_data} ->
+      {:ok, hook_data} ->
+        WebhooksWeb.Endpoint.broadcast_from(self(), @topic, "hook_created", hook_data)
         {:noreply,
          socket
          |> put_flash(:info, "Hook data created successfully")
+         |> assign(:hook_data, hook_data)
          |> push_redirect(to: socket.assigns.return_to)}
+
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

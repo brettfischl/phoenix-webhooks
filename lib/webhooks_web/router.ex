@@ -25,11 +25,10 @@ defmodule WebhooksWeb.Router do
 
     resources "/hooks", HookController
 
-    live "/hook_data", HookDataLive.Index, :index
-    live "/hook_data/new", HookDataLive.Index, :new
-    live "/hook_data/:id/edit", HookDataLive.Index, :edit
-    live "/hook_data/:id", HookDataLive.Show, :show
-    live "/hook_data/:id/show/edit", HookDataLive.Show, :edit
+    live "/hooks/:hook_id/data", HookDataLive.Index, :index
+    live "/hooks/:hook_id/data/new", HookDataLive.Index, :new
+    live "/hooks/:hook_id/data/:id", HookDataLive.Show, :show
+    live "/hooks/:hook_id/data/:id/edit", HookDataLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
