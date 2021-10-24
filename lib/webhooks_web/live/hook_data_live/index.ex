@@ -20,12 +20,24 @@ defmodule WebhooksWeb.HookDataLive.Index do
   end
 
   @impl true
-  def mount(params, _session, socket) do
-    WebhooksWeb.Endpoint.subscribe(@topic)
-    {:ok, assign(socket, %{
-      hook_data_collection: list_hook_data(params["hook_id"], 0),
-      hook: Hooks.get_hook!(params["hook_id"])
-    })}
+  def mount(%{"hook_id" => hook_id}, session, socket) do
+    session = assign_defaults(session, socket)
+    org_id = List.first(session.assigns.current_user.organizations).id
+    case Hooks.authorize_hook_data(hook_id, org_id) do
+      [hook] ->
+        WebhooksWeb.Endpoint.subscribe(@topic)
+        {:ok, assign(socket, %{
+          hook_data_collection: list_hook_data(hook_id, 0),
+          hook: hook
+        })}
+
+      [] ->
+        redirect =
+          socket
+          |> put_flash(:error, "You don't have access to that hook.")
+          |> push_redirect(to: Routes.hook_path(socket, :index))
+        {:ok, redirect}
+    end
   end
 
   @impl true

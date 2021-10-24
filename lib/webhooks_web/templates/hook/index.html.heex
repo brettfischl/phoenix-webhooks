@@ -17,6 +17,7 @@
         <span><%= link "Show", to: Routes.hook_path(@conn, :show, hook) %></span>
         <span><%= link "Edit", to: Routes.hook_path(@conn, :edit, hook) %></span>
         <span><%= link "Delete", to: Routes.hook_path(@conn, :delete, hook), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <span><%= link "Data", to: Routes.hook_data_index_path(@conn, :index, hook.id) %></span>
       </td>
     </tr>
 <% end %>

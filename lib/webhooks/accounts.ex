@@ -93,7 +93,6 @@ defmodule Webhooks.Accounts do
 
     Ecto.Multi.new()
     |> Ecto.Multi.insert(:user, user)
-    # |> Ecto.Multi.insert(:organization, organization)
     |> Repo.transaction()
     |> case do
       {:ok, %{user: user}} -> {:ok, user}

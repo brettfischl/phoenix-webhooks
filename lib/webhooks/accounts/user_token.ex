@@ -61,14 +61,6 @@ defmodule Webhooks.Accounts.UserToken do
         where: organization.is_current == true,
         preload: [organizations: organization],
         select: user
-    # query =
-    #   from token in token_and_context_query(token, "session"),
-    #     join: user in assoc(token, :user),
-    #     where: token.inserted_at > ago(@session_validity_in_days, "day"),
-    #     join: organization in Webhooks.Accounts.UserOrganization, on: organization.user_id == user.id,
-    #     where: organization.is_current == true,
-    #     preload: [user: organization],
-    #     select: [user, organization]
 
     {:ok, query}
   end
