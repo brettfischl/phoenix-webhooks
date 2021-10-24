@@ -1,10 +1,15 @@
-<h1>Show Hook</h1>
+<h1>Webhook: <%= @hook.name %></h1>
 
 <ul>
 
   <li>
     <strong>Path:</strong>
-    <%= @hook.path %>
+    <%= hook_path(@conn, @hook) %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @hook.description %>
   </li>
 
 </ul>

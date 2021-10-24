@@ -4,6 +4,8 @@ defmodule Webhooks.Repo.Migrations.CreateHooks do
   def change do
     create table(:hooks) do
       add :path, :string
+      add :name, :string
+      add :description, :string
       add :organization_id, references(:organizations, on_delete: :nothing)
 
       timestamps()
