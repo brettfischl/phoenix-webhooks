@@ -8,7 +8,9 @@ defmodule WebhooksWeb.HookController do
   alias Webhooks.Hooks.Hook
 
   def index(conn, _params) do
-    hooks = Hooks.list_hooks()
+    IO.inspect(List.first(conn.assigns.current_user.organizations))
+
+    hooks = Hooks.list_hooks(List.first(conn.assigns.current_user.organizations).id)
     render(conn, "index.html", hooks: hooks)
   end
 

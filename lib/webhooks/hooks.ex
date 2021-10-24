@@ -17,8 +17,10 @@ defmodule Webhooks.Hooks do
       [%Hook{}, ...]
 
   """
-  def list_hooks do
-    Repo.all(Hook)
+  def list_hooks(organization_id) do
+    query =
+      from(h in Hook, where: h.organization_id == ^organization_id)
+    Repo.all(query)
   end
 
   @doc """
