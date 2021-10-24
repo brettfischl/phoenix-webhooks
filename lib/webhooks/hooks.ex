@@ -17,8 +17,10 @@ defmodule Webhooks.Hooks do
       [%Hook{}, ...]
 
   """
-  def list_hooks do
-    Repo.all(Hook)
+  def list_hooks(organization_id) do
+    query =
+      from(h in Hook, where: h.organization_id == ^organization_id)
+    Repo.all(query)
   end
 
   @doc """
@@ -201,5 +203,11 @@ defmodule Webhooks.Hooks do
   """
   def change_hook_data(%HookData{} = hook_data, attrs \\ %{}) do
     HookData.changeset(hook_data, attrs)
+  end
+
+  def authorize_hook_data(hook_id, org_id) do
+    query =
+      from Hook, where: [id: ^hook_id, organization_id: ^org_id]
+    Repo.all(query)
   end
 end

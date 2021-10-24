@@ -23,8 +23,8 @@ defmodule WebhooksWeb.UserRegistrationController do
         |> put_flash(:info, "User created successfully.")
         |> UserAuth.log_in_user(user)
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+      {:error, {_, value} } ->
+        render(conn, "new.html", changeset: value)
     end
   end
 end

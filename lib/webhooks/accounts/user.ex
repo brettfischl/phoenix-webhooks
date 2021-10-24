@@ -8,6 +8,7 @@ defmodule Webhooks.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
+    has_one :token, Webhooks.Accounts.UserToken
     many_to_many :organizations, Webhooks.Accounts.Organization, join_through: Webhooks.Accounts.UserOrganization, on_replace: :delete
 
     timestamps()

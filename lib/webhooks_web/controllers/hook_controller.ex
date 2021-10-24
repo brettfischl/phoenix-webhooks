@@ -8,7 +8,7 @@ defmodule WebhooksWeb.HookController do
   alias Webhooks.Hooks.Hook
 
   def index(conn, _params) do
-    hooks = Hooks.list_hooks()
+    hooks = Hooks.list_hooks(List.first(conn.assigns.current_user.organizations).id)
     render(conn, "index.html", hooks: hooks)
   end
 
@@ -18,7 +18,9 @@ defmodule WebhooksWeb.HookController do
   end
 
   def create(conn, %{"hook" => hook_params}) do
-    case Hooks.create_hook(hook_params) do
+    org_id = List.first(conn.assigns.current_user.organizations).id
+    hook = Map.merge(hook_params, %{"organization_id" => org_id})
+    case Hooks.create_hook(hook) do
       {:ok, hook} ->
         conn
         |> put_flash(:info, "Hook created successfully.")

@@ -14,7 +14,7 @@ defmodule Webhooks.Hooks.Hook do
   @doc false
   def changeset(hook, attrs) do
     hook
-    |> cast(attrs, [:path])
-    |> validate_required([:path])
+    |> cast(attrs, [:path, :organization_id])
+    |> validate_required([:path, :organization_id])
   end
 end
