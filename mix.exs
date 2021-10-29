@@ -33,6 +33,7 @@ defmodule Webhooks.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:poison, "~> 5.0"},
       {:bcrypt_elixir, "~> 2.0"},
       {:phoenix, "~> 1.6.2"},
       {:phoenix_ecto, "~> 4.4"},

@@ -84,4 +84,8 @@ defmodule WebhooksWeb.HookDataLive.Index do
       hook_id -> Hooks.list_hook_data(hook_id, page, 10)
     end
   end
+
+  def hook_path(session, %Webhooks.Hooks.Hook{} = hook) do
+    Routes.hook_url(session, :receive, hook.path)
+  end
 end

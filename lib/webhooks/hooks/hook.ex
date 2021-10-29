@@ -5,6 +5,8 @@ defmodule Webhooks.Hooks.Hook do
   schema "hooks" do
     field :path, :string
     field :organization_id, :id
+    field :name, :string
+    field :description, :string
 
     has_many :hook_datas, Webhooks.Hooks.HookData
 
@@ -14,7 +16,7 @@ defmodule Webhooks.Hooks.Hook do
   @doc false
   def changeset(hook, attrs) do
     hook
-    |> cast(attrs, [:path, :organization_id])
-    |> validate_required([:path, :organization_id])
+    |> cast(attrs, [:path, :organization_id, :name, :description])
+    |> validate_required([:path, :organization_id, :name])
   end
 end

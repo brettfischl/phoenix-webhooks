@@ -120,7 +120,7 @@ defmodule Webhooks.Hooks do
   def list_hook_data(hook_id, page \\ 0, page_size \\ 10) do
     offset = page * page_size
     query =
-      from HookData, where: [hook_id: ^hook_id], limit: ^page_size, offset: ^offset
+      from HookData, where: [hook_id: ^hook_id], limit: ^page_size, offset: ^offset, order_by: [desc: :inserted_at]
     Repo.all(query)
   end
 
