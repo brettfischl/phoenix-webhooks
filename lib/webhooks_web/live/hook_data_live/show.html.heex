@@ -9,29 +9,26 @@
     return_to: Routes.hook_data_show_path(@socket, :show, @hook.id, @hook_data) %>
 <% end %>
 
-<ul>
-
-  <li>
-    <strong>Data:</strong>
-    <%= @hook_data.data %>
-  </li>
-
-  <li>
+<div class='hook-show'>
+  <div class='hook-left'>
     <strong>Referrer:</strong>
-    <%= @hook_data.referrer %>
-  </li>
+    <p><%= @hook_data.referrer %></p>
+  </div>
 
-  <li>
-    <strong>Params:</strong>
-    <%= @hook_data.params %>
-  </li>
-
-  <li>
+  <div class='hook-right'>
     <strong>Method:</strong>
-    <%= @hook_data.method %>
-  </li>
+    <p><%=inspect(@hook_data.method) %></p>
+  </div>
 
-</ul>
+  <div class='hook-left'>
+    <strong>Data:</strong>
+    <p class='hook-json'><%= Poison.encode!(@hook_data.data, pretty: true) %></p>
+  </div>
+  
+  <div class='hook-right'>
+    <strong>Params:</strong>
+    <p class='hook-json'><%= Poison.encode!(@hook_data.params, pretty: true) %></p>
+  </div>
+</div>
 
-<span><%= live_patch "Edit", to: Routes.hook_data_show_path(@socket, :edit, @hook.id, @hook_data), class: "button" %></span> |
 <span><%= live_redirect "Back", to: Routes.hook_data_index_path(@socket, :index, @hook.id) %></span>

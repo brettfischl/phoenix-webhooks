@@ -1,0 +1,41 @@
+
+.hook-sidebar {
+  width: 33%
+}
+
+.hook-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.hook-content {
+  width: 67%
+}
+
+.hook-show {
+  display: flex;
+  width: 33vw;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.hook-left {
+  width: 50%;
+  height: 100%;
+}
+
+.hook-right {
+  width: 50%;
+  height: 100%;
+}
+
+
+.hook-json {
+  background: black;
+  color: green;
+  white-space: pre-wrap;
+  margin: 2px;
+  height: 100%;
+  padding: 5px;
+}
