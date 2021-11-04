@@ -4,6 +4,7 @@ defmodule Webhooks.Release do
   installed.
   """
   @app :webhooks
+  Application.ensure_all_started(@app)
 
   def migrate do
     load_app()
