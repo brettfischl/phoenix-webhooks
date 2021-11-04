@@ -33,12 +33,17 @@ if config_env() == :prod do
       """
 
   app_name =
-    System.get_env("FLY_APP_NAME") ||
+    System.get_env("APP_URL") ||
       raise "FLY_APP_NAME not available"
+
+  app_port =
+    System.get_env("HEROKU_PORT") ||
+      raise "PORT NOT AVAILABLE"
 
   config :webhooks, WebhooksWeb.Endpoint,
     server: true,
-    url: [host: "#{app_name}.fly.dev", port: 80],
+    url: [scheme: "https", host: "fishery.herokuapp.com", port: 443],
+    force_ssl: [rewrite_on: [:x_forwarded_proto]],
     http: [
       port: String.to_integer(System.get_env("PORT") || "4000"),
       # IMPORTANT: support IPv6 addresses
