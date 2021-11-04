@@ -6,7 +6,7 @@ kill_timeout = 5
 [env]
 
 [deploy]
-  release_command = "/app/bin/hello_elixir eval HelloElixir.Release.migrate"
+  release_command = "/app/bin/hello_elixir eval Webhooks.Release.migrate"
 
 [[services]]
   internal_port = 4000
